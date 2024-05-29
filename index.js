@@ -49,7 +49,7 @@ app.post("/scanner", async (req, res) => {
         {
           role: "user",
           content:
-            "These are the accesibility issues after a scan, could you make a list with the context and messages and add a solution to each one" +
+            "These are the accessibility issues after a scan, could you please give me 2 lists. So one is the violations and the other is solution. The violations should only tell the user about the violations, nothing else. and the solution should be the answer for the violations. i want you to use bullet points everytime for the solutions that are possible and for every violation. so each bullet point has a solution and a violation. be clear and concise and dont repeat anything twice. so each violation should always have a solution in the solution list that you are providing. so if user has bad accessibility on the header, you tell the user about that in the solution. and keep it the same for everything else." +
             scan,
         },
       ],
