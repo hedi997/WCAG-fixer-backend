@@ -27,8 +27,8 @@ app.get("/pa11y/test", async (req, res) => {
     } catch (error) {
       console.error(error);
       res
-        .status(500)
-        .json({ error: "An error occurred while testing the URL" });
+          .status(500)
+          .json({ error: "An error occurred while testing the URL" });
     }
   }
 });
@@ -78,3 +78,4 @@ app.post("/scanner", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
