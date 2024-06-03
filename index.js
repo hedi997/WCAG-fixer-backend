@@ -49,15 +49,28 @@ app.post("/scanner", async (req, res) => {
         {
           role: "user",
           content:
-            "These are the accessibility issues after a scan, could you please give me 2 lists. So one is the violations and the other is solution. The violations should only tell the user about the violations, nothing else. and the solution should be the answer for the violations. i want you to use bullet points everytime for the solutions that are possible and for every violation. so each bullet point has a solution and a violation. be clear and concise and dont repeat anything twice. so each violation should always have a solution in the solution list that you are providing. so if user has bad accessibility on the header, you tell the user about that in the solution. and keep it the same for everything else." +
-            scan,
+              "These are the accessibility issues after a scan, could you please give me 2 lists. So one is the violations and the other is solution. The violations should only tell the user about the violations, nothing else. and the solution should be the answer for the violations. i want you to use bullet points everytime for the solutions that are possible and for every violation. so each bullet point has a solution and a violation. be clear and concise and dont repeat anything twice. so each violation should always have a solution in the solution list that you are providing. so if user has bad accessibility on the header, you tell the user about that in the solution. and keep it the same for everything else." +
+              scan,
         },
       ],
       model: "gpt-3.5-turbo",
     });
 
-    const answer = completion.choices[0].message;
-    res.send(answer);
+    const answer = completion.choices[0].message.content;
+
+    const splitContent = answer.split('**Solutions:**');
+    const violationsContent = splitContent[0].replace('**Violations:**', '').trim();
+    const solutionsContent = splitContent[1].trim();
+
+    res.json({
+      role: "assistant",
+      title: "Violations and Solutions",
+      content: {
+        violations: violationsContent,
+        solutions: solutionsContent,
+      },
+    });
+    console.log(answer);
   }
 });
 
